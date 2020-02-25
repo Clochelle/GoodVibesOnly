@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <title>Good Vibes Only</title>
     <link rel="stylesheet" href="Styles.css" type="text/css">
-    <script src="vue.js"></script>
+    <script src="vue.js" defer></script>
+    <script src="moment.js" defer></script>
     <script src="Script.js" defer></script>
   </head>
   <body>
@@ -12,6 +13,10 @@
 <div class="header">
   <h1>GOOD VIBES ONLY</h1>
   <p>Une murder avec Jude Law</p>
+
+  <script>
+      moment();
+  </script>
 </div>
 
 <div id="ID">
@@ -45,6 +50,7 @@
     <label>Habilitation : Accès au corpus</label>
     <input type="text" v-model.trim="passwordCorpus" v-on:keyup.13="mdp2">
     <button type="button" name="button" v-on:click="mdp2">Submit</button>
+    <button type="button" name="button" v-on:click="backMenu">back</button>
   </div>
 
 <!-- Page du Corpus avec les fées -->
@@ -60,6 +66,7 @@
       <label>Habilitation : Accès à la Liste des Joueurs</label>
       <input type="text" v-model.trim="passwordListe" v-on:keyup.13="mdp3">
       <button type="button" name="button" v-on:click="mdp3">Submit</button>
+      <button type="button" name="button" v-on:click="backMenu">back</button>
     </div>
 
   <!-- Page de Liste des Joueurs -->

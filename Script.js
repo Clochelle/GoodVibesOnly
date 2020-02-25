@@ -5,22 +5,24 @@ const app = new Vue({
     password: '',
     passwordCorpus: '',
     passwordListe: '',
+    passwordOK: ['eon7', 'missd3'],
+    passwordCorpusOK: ['eon3', 'missd2', 'lk774'],
+    passwordListeOK: ['eon1', 'missd2', 'compte a rebours', 'compte à rebours', '6651732', 'melusia', 'antenna research', 'bomber', 'enfer', 'WHS-R1-134', 'no life', 'romeo', 'roméo', 'juliette'],
     currentPage: 'accueil',
-    compteARebours: 'none'
+    compteARebours: 'none',
   },
   computed: {
     value: function() {
-      if (this.password.toLowerCase() === 'eon7' || this.password.toLowerCase() === 'missd3') {
+      if (this.passwordOK.indexOf(this.password.toLowerCase()) >= 0) {
         return value = true;
       } else {
         return value = false;
       }
-    },
+    }
   },
   methods: {
     mdp1: function() {
-      if (this.password.toLowerCase() === 'eon7'
-          || this.password.toLowerCase() === 'missd3') {
+      if (this.passwordOK.indexOf(this.password.toLowerCase()) >= 0) {
         console.log('correct password');
         this.currentPage = 'menu';
         this.compteARebours = 'display';
@@ -39,9 +41,7 @@ const app = new Vue({
       this.password = '';
     },
     mdp2: function() {
-      if (this.passwordCorpus.toLowerCase() === 'eon3'
-          || this.passwordCorpus.toLowerCase() === 'missd2'
-          || this.passwordCorpus.toLowerCase() === 'lk774') {
+      if (this.passwordCorpusOK.indexOf(this.passwordCorpus.toLowerCase()) >= 0) {
         console.log('correct password');
         this.currentPage = 'pageCorpus';
       } else {
@@ -49,20 +49,7 @@ const app = new Vue({
       }
     },
     mdp3: function() {
-      if (this.passwordListe.toLowerCase() === 'eon1'
-          || this.passwordListe.toLowerCase() === 'missd2'
-          || this.passwordListe.toLowerCase() === 'compte a rebours'
-          || this.passwordListe.toLowerCase() === 'compte à rebours'
-          || this.passwordListe.toLowerCase() === '6651732'
-          || this.passwordListe.toLowerCase() === 'melusia'
-          || this.passwordListe.toLowerCase() === 'antenna research'
-          || this.passwordListe.toLowerCase() === 'bomber'
-          || this.passwordListe.toLowerCase() === 'enfer'
-          || this.passwordListe.toLowerCase() === 'WHS-R1-134'
-          || this.passwordListe.toLowerCase() === 'no life'
-          || this.passwordListe.toLowerCase() === 'romeo'
-          || this.passwordListe.toLowerCase() === 'roméo'
-          || this.passwordListe.toLowerCase() === 'juliette') {
+      if (this.passwordListeOK.indexOf(this.passwordListe.toLowerCase()) >= 0) {
         console.log('correct password');
         this.currentPage = 'pageListe';
       } else {
@@ -71,6 +58,6 @@ const app = new Vue({
     },
     backMenu: function() {
       this.currentPage = 'menu';
-    },
+    }
   }
 })
