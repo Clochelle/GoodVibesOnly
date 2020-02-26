@@ -1,3 +1,5 @@
+const myAudio = new Audio('Portal.mp3')
+
 const app = new Vue({
   el: '#ID',
   data: {
@@ -10,11 +12,11 @@ const app = new Vue({
     passwordListeOK: ['eon1', 'missd2', 'compte a rebours', 'compte à rebours', '6651732', 'melusia', 'antenna research', 'bomber', 'enfer', 'WHS-R1-134', 'no life', 'romeo', 'roméo', 'juliette'],
     currentPage: 'accueil',
     compteARebours: 'none',
-    Swag: 3665,
-    Heures: 112,
-    Minutes: '',
-    Secondes: '',
-    timer: false
+    tempsTotal: 7200,
+    heures: 112,
+    minutes: '',
+    secondes: '',
+    timer: true
   },
   computed: {
     value: function() {
@@ -36,8 +38,11 @@ const app = new Vue({
       }
     },
     countDown: function() {
-      if (this.timer = true) {
+      if (this.timer == true) {
+        this.compteARebours = 'display';
+        setInterval(() => {this.tempsTotal--; }, 1000);
         console.log('timer est true');
+        this.timer = false;
       } else {
         console.log('timer est false');
       }
@@ -71,12 +76,16 @@ const app = new Vue({
     backMenu: function() {
       this.currentPage = 'menu';
     },
+    playSound: function() {
+       myAudio.play();
+       console.log('je fonctionne');
+    }
   },
   watch: {
-    Swag: function() {
-      this.Heures = Math.floor(this.Swag / 3600);
-      this.Minutes = Math.floor((this.Swag - (this.Heures * 3600)) / 60);
-      this.Secondes = Math.floor((this.Swag - (this.Heures * 3600) - (this.Minutes * 60)));
+    tempsTotal: function() {
+      this.heures = Math.floor(this.tempsTotal / 3600);
+      this.minutes = Math.floor((this.tempsTotal - (this.heures * 3600)) / 60);
+      this.secondes = Math.floor((this.tempsTotal - (this.heures * 3600) - (this.minutes * 60)));
     }
- }
+  },
 })
