@@ -10,6 +10,10 @@ const app = new Vue({
     passwordListeOK: ['eon1', 'missd2', 'compte a rebours', 'compte à rebours', '6651732', 'melusia', 'antenna research', 'bomber', 'enfer', 'WHS-R1-134', 'no life', 'romeo', 'roméo', 'juliette'],
     currentPage: 'accueil',
     compteARebours: 'none',
+    Swag: 3665,
+    Heures: 112,
+    Minutes: '',
+    Secondes: ''
   },
   computed: {
     value: function() {
@@ -18,7 +22,7 @@ const app = new Vue({
       } else {
         return value = false;
       }
-    }
+    },
   },
   methods: {
     mdp1: function() {
@@ -58,6 +62,28 @@ const app = new Vue({
     },
     backMenu: function() {
       this.currentPage = 'menu';
+    },
+    countDown: function() {
+     if (this.Swag > 0) {
+      setTimeout(() => {
+        this.Swag--
+      } ,1000);
+      return this.Swag;
+      } else {
+        return 'BOOM';
+      }
+     },
+     calculHeures: function() {
+      this.Heures = Math.floor(this.Swag / 3600);
+      return this.Heures;
+     },
+     calculMinutes: function() {
+      this.Minutes = Math.floor((this.Swag - (this.Heures * 3600)) / 60);
+      return this.Minutes;
+     },
+     calculSecondes: function() {
+      this.Secondes = Math.floor((this.Swag - (this.Heures * 3600) - (this.Minutes * 60)));
+      return this.Secondes;
+     }
     }
-  }
 })
