@@ -17,8 +17,8 @@
 
 <div id="ID">
   <h2>Une app préparée avec soin pour {{ username }}</h2>
-    <p>{{ countDown() }}</p>
-    <p>{{ calculHeures() }} : {{ calculMinutes() }} : {{ calculSecondes() }}</p>
+    <p>{{ Swag }}</p>
+    <p>{{ Heures }} : {{ Minutes }} : {{ Secondes }}</p>
 
 <!-- Page d'Accueil -->
 
@@ -30,6 +30,7 @@
     <label for="password">Password</label>
     <input type="text" id="Password" v-model.trim="password" v-on:keyup.13="mdp1">
     <button v-on:click="mdp1">Submit</button>
+    <button v-on:click="countDown">TIMER</button>
     <p>La valeur est {{ value }}</p>
   </div>
 

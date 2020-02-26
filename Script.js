@@ -13,7 +13,8 @@ const app = new Vue({
     Swag: 3665,
     Heures: 112,
     Minutes: '',
-    Secondes: ''
+    Secondes: '',
+    timer: false
   },
   computed: {
     value: function() {
@@ -29,9 +30,16 @@ const app = new Vue({
       if (this.passwordOK.indexOf(this.password.toLowerCase()) >= 0) {
         console.log('correct password');
         this.currentPage = 'menu';
-        this.compteARebours = 'display';
+        console.log('correct');
       } else {
-        this.compteARebours = 'display';
+        console.log('mauvais mdp');
+      }
+    },
+    countDown: function() {
+      if (this.timer = true) {
+        console.log('timer est true');
+      } else {
+        console.log('timer est false');
       }
     },
     corpus: function() {
@@ -63,27 +71,12 @@ const app = new Vue({
     backMenu: function() {
       this.currentPage = 'menu';
     },
-    countDown: function() {
-     if (this.Swag > 0) {
-      setTimeout(() => {
-        this.Swag--
-      } ,1000);
-      return this.Swag;
-      } else {
-        return 'BOOM';
-      }
-     },
-     calculHeures: function() {
+  },
+  watch: {
+    Swag: function() {
       this.Heures = Math.floor(this.Swag / 3600);
-      return this.Heures;
-     },
-     calculMinutes: function() {
       this.Minutes = Math.floor((this.Swag - (this.Heures * 3600)) / 60);
-      return this.Minutes;
-     },
-     calculSecondes: function() {
       this.Secondes = Math.floor((this.Swag - (this.Heures * 3600) - (this.Minutes * 60)));
-      return this.Secondes;
-     }
     }
+ }
 })
