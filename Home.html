@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Good Vibes Only</title>
     <link rel="stylesheet" href="Styles.css" type="text/css">
+    <script src="constants.js"></script>
     <script src="vue.js" defer></script>
     <script src="moment.js" defer></script>
     <script src="Script.js" defer></script>
@@ -19,7 +20,6 @@
   <h2>Une app préparée avec soin pour {{ username }}</h2>
 
 <!-- Page d'Accueil -->
-
   <div v-if="compteARebours == 'display'" class="">
     <p>COMPTE A REBOURS GARE A TES FESSES</p>
     <p>{{ tempsTotal }}</p>
@@ -28,6 +28,10 @@
 
   <div v-if="currentPage == 'accueil'" class="">
     <label for="password">Password</label>
+    <!--
+      Commentaire ici : je te conseille d'avoir seulement un handleAccueilClick comme methode puis de faire les calls néccésaire
+                        dans cette method la. Moins y'a de code dans ton html, mieux c'est
+    -->
     <input type="text" id="Password" v-model.trim="password" v-on:keyup.13="mdp1(); playSound(); countDown()">
     <button v-on:click="mdp1(); playSound(); countDown()">Submit</button>
     <p>La valeur est {{ value }}</p>
@@ -83,7 +87,7 @@
 
 </div>
 
-
+  <p><a href="./config.html">Accès à l'admin RETIRER pour jouer!</a></p>
 
   </body>
 </html>

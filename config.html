@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Good Vibes Only</title>
+  <link rel="stylesheet" href="Styles.css" type="text/css">
+  <script src="constants.js"></script>
+  <script src="vue.js" defer></script>
+  <script src="moment.js" defer></script>
+  <script src="configuration.js" defer></script>
+</head>
+
+<body>
+  <div id="config-app">
+    <div id="game-config">
+      <form action="">
+        <div>
+          <label>Durée:</label>
+          <input type="number" v-model.number="duration">s
+        </div>
+        <div>
+          <label>Durée premier crane:</label>
+          <input type="number" v-model.number="firstSkullDuration">s
+        </div>
+        <div>
+          <label>Durée crane subséquent:</label>
+          <input type="number" v-model.number="otherSkullsDuration">s
+        </div>
+        <button type="button" v-on:click="save">Sauvegarder</button>
+      </form>
+    </div>
+    <h2>Résumé</h2>
+    <p>#1 : {{ toHHMMSS(first) }}</p>
+    <p>#2 : {{ toHHMMSS(second) }}</p>
+    <p>#3 : {{ toHHMMSS(third) }}</p>
+    <p>#4 : {{ toHHMMSS(fourth) }}</p>
+    <p>#5 : {{ toHHMMSS(fifth) }}</p>
+    <p>#6 : {{ toHHMMSS(sixth) }}</p>
+    <p v-if="displayWarn">Des crânes apparaissent après la fin du jeu</p>
+    <h2>Autre actions</h2>
+    <button v-on:click="reset">Reset timer</button>
+    <button v-on:click="resetAll">Retourner aux valeurs par défaut</button>
+    <h2>Appuyer <a href="./Home.html">ICI</a> ce bouton pour aller sur la page du jeu</h2>
+  </div>
+</body>
+
+</html>
