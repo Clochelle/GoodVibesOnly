@@ -1,9 +1,6 @@
-const myAudio = new Audio('boom.mp3')
-
 const app = new Vue({
   el: '#ID',
   data: {
-    username: 'Maiiitre',
     password: '',
     passwordCorpus: '',
     passwordListe: '',
@@ -26,13 +23,9 @@ const app = new Vue({
   //   }
   // },
   computed: {
-    value: function() {
-      if (this.passwordOK.indexOf(this.password.toLowerCase()) >= 0) {
-        return value = true;
-      } else {
-        return value = false;
-      }
-    },
+    skullCount: function() {
+       return this.getSkullCount()
+     }
   },
   methods: {
     mdp1: function() {
@@ -46,7 +39,6 @@ const app = new Vue({
     },
     countDown: function() {
       if (this.timerStarted == false) {
-        myAudio.play();
         console.log('je fonctionne');
 
         // if (!window.localStorage.getItem(TIME_LEFT_KEY)) {
@@ -90,6 +82,9 @@ const app = new Vue({
         this.currentPage = 'pageListe';
       } else {
         this.elecShock();
+        setTimeout(() => {
+          this.currentPage = 'menu';
+        }, 10000);
       }
     },
     elecShock: function() {
