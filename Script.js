@@ -1,4 +1,4 @@
-const myAudio = new Audio('Portal.mp3')
+const myAudio = new Audio('boom.mp3')
 
 const app = new Vue({
   el: '#ID',
@@ -9,23 +9,22 @@ const app = new Vue({
     passwordListe: '',
     passwordOK: ['eon7', 'missd3'],
     passwordCorpusOK: ['eon3', 'missd2', 'lk774'],
-    // comme deja mentionne, il va y avoir un probleme avec WHS-R1-134 qui devrait etre en minuscules
-    passwordListeOK: ['eon1', 'missd2', 'compte a rebours', 'compte à rebours', '6651732', 'melusia', 'antenna research', 'bomber', 'enfer', 'WHS-R1-134', 'no life', 'romeo', 'roméo', 'juliette'],
+    passwordListeOK: ['eon1', 'missd2', 'compte a rebours', 'compte à rebours', '6651732', 'melusia', 'antenna research', 'bomber', 'enfer', 'whs-r1-134', 'no life', 'romeo', 'roméo', 'juliette'],
     currentPage: 'accueil',
-    compteARebours: 'none',
     tempsTotal: DEFAULT_DURATION,
-    heures: 112,
+    heures: '',
     minutes: '',
     secondes: '',
-    timer: true,
+    timerStarted: false,
+    endOfTime: false
   },
-  created: function() {
-    if (window.localStorage.getItem(TIME_LEFT_KEY)) {
-      console.log('poui?')
-      this.tempsTotal = window.localStorage.getItem(TIME_LEFT_KEY)
-      this.countDown();
-    }
-  },
+  // created: function() {
+  //   if (window.localStorage.getItem(TIME_LEFT_KEY)) {
+  //     console.log('poui?')
+  //     this.tempsTotal = window.localStorage.getItem(TIME_LEFT_KEY)
+  //     this.countDown();
+  //   }
+  // },
   computed: {
     value: function() {
       if (this.passwordOK.indexOf(this.password.toLowerCase()) >= 0) {
@@ -46,26 +45,22 @@ const app = new Vue({
       }
     },
     countDown: function() {
-      // commentaire : utiliser une variable plus clair du genre "timerNotStarted" ou "timerStarted" et inverser la logique.
-      if (this.timer == true) {
-        // commentaire : choisi une langue, soit anglais ou francais, (je conseille anglais perso) et utilise la tout le temps.
-        //               Dans ce cas la, c'est dur de dire la différence entre "timer" et "compteARebours" ?
-        //               Aussi, dans ce cas la, pourquoi ne pas utilise "compteARebours" en booleen?
-        //               Aussi aussi : je pense que "timer" et "compteARebours" pourraient être une seule variable
-        this.compteARebours = 'display';
+      if (this.timerStarted == false) {
+        myAudio.play();
+        console.log('je fonctionne');
 
-        if (!window.localStorage.getItem(TIME_LEFT_KEY)) {
-          this.tempsTotal = parseInt(window.localStorage.getItem(DURATION_KEY)) || DEFAULT_DURATION;
-        }
+        // if (!window.localStorage.getItem(TIME_LEFT_KEY)) {
+        //   this.tempsTotal = parseInt(window.localStorage.getItem(DURATION_KEY)) || DEFAULT_DURATION;
+        // }
 
         setInterval(() => {
           this.tempsTotal--;
           window.localStorage.setItem(TIME_LEFT_KEY, this.tempsTotal);
         }, 1000);
-        console.log('timer est true');
-        this.timer = false;
+        console.log(this.timerStarted);
+        this.timerStarted = true;
       } else {
-        console.log('timer est false');
+        console.log(this.timerStarted);
       }
     },
     corpus: function() {
@@ -82,8 +77,11 @@ const app = new Vue({
       if (this.passwordCorpusOK.indexOf(this.passwordCorpus.toLowerCase()) >= 0) {
         console.log('correct password');
         this.currentPage = 'pageCorpus';
+        setTimeout(() => {
+          this.currentPage = 'menu';
+        }, 4000);
       } else {
-        this.currentPage = 'dechargeElec';
+       this.elecShock();
       }
     },
     mdp3: function() {
@@ -91,15 +89,14 @@ const app = new Vue({
         console.log('correct password');
         this.currentPage = 'pageListe';
       } else {
-        this.currentPage = 'dechargeElec';
+        this.elecShock();
       }
+    },
+    elecShock: function() {
+      this.currentPage = 'dechargeElec';
     },
     backMenu: function() {
       this.currentPage = 'menu';
-    },
-    playSound: function() {
-       myAudio.play();
-       console.log('je fonctionne');
     },
     getSkullCount: function() {
       const firstSkullDuration = parseInt(window.localStorage.getItem(FIRST_SKULL_KEY)) || DEFAULT_FIRST_SKULL;
@@ -107,13 +104,29 @@ const app = new Vue({
       const gameDuration = parseInt(window.localStorage.getItem(DURATION_KEY)) || DEFAULT_DURATION;
       const elapsedTime = gameDuration - this.tempsTotal;
       return Math.floor((elapsedTime - firstSkullDuration) / otherSkullsDuration) + 1 ;
-    }
+    },
+    handleAccueilClick: function() {
+      this.mdp1();
+      this.countDown();
+    },
+    pauseAlerte: function() {
+     this.endOfTime = false;
+   }
   },
   watch: {
     tempsTotal: function() {
       this.heures = Math.floor(this.tempsTotal / 3600);
       this.minutes = Math.floor((this.tempsTotal - (this.heures * 3600)) / 60);
       this.secondes = Math.floor((this.tempsTotal - (this.heures * 3600) - (this.minutes * 60)));
-    }
+      if (this.tempsTotal == 0) {
+        console.log("fin du temps");
+        this.timerStarted = false;
+        this.endOfTime = true;
+        this.currentPage = 'end';
+        setTimeout(() => {
+          this.currentPage = 'downtrip';
+        }, 10000);
+      }
+   }
   },
 })

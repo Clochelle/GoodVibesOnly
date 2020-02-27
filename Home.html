@@ -18,9 +18,10 @@
 
 <div id="ID">
   <h2>Une app préparée avec soin pour {{ username }}</h2>
+  <h2>{{ getSkullCount() }}</h2>
 
 <!-- Page d'Accueil -->
-  <div v-if="compteARebours == 'display'" class="">
+  <div v-if="timerStarted == true" class="">
     <p>COMPTE A REBOURS GARE A TES FESSES</p>
     <p>{{ tempsTotal }}</p>
     <p>{{ heures }} : {{ minutes }} : {{ secondes }}</p>
@@ -28,12 +29,8 @@
 
   <div v-if="currentPage == 'accueil'" class="">
     <label for="password">Password</label>
-    <!--
-      Commentaire ici : je te conseille d'avoir seulement un handleAccueilClick comme methode puis de faire les calls néccésaire
-                        dans cette method la. Moins y'a de code dans ton html, mieux c'est
-    -->
-    <input type="text" id="Password" v-model.trim="password" v-on:keyup.13="mdp1(); playSound(); countDown()">
-    <button v-on:click="mdp1(); playSound(); countDown()">Submit</button>
+    <input type="text" id="Password" v-model.trim="password" v-on:keyup.13="handleAccueilClick">
+    <button v-on:click="handleAccueilClick">Submit</button>
     <p>La valeur est {{ value }}</p>
   </div>
 
@@ -80,11 +77,62 @@
 
 <!-- Page d'erreur -->
 
-  <div v-if="currentPage == 'dechargeElec'" class="">
+  <div v-if="currentPage == 'dechargeElec'" class="decharge">
+    <video width="0" height="0" autoplay="true">
+     <source src="Decharge.mp4" type="video/mp4" />
+    </video>
     <h3>DÉCHARGE DANS TA GUEULE DÉCHARGE DANS TA GUEULE SUR CHIQUITA</h3>
     <button type="button" name="button" v-on:click="backMenu">back</button>
   </div>
 
+  <!-- Page de fin du temps -->
+
+  <div v-if="currentPage == 'end'" class="">
+    <h3>CORPUS DÉTRUIT</h3>
+  </div>
+
+  <!-- Page de fin du trip-->
+
+  <div v-if="currentPage == 'downtrip'" class="">
+    <h3>DOWNTRIP EN COURS</h3>
+  </div>
+
+  <!-- Alerte de fin -->
+
+   <div v-if="endOfTime ==  true" class="">
+    <video width="0" height="0" autoplay="true" loop>
+     <source src="Alerte.mp4" type="video/mp4" />
+    </video>
+    <button v-on:click="pauseAlerte">Pause</button>
+   </div>
+
+  <!-- Les cranes -->
+
+   <div v-if="getSkullCount() >= 1 " class="">
+     <img src="Xena.jpg" alt="Xena en confiance">
+   </div>
+
+   <div v-if="getSkullCount() >= 2 " class="">
+     <img src="Xena.jpg" alt="Xena en confiance">
+   </div>
+
+   <div v-if="getSkullCount() >= 3 " class="">
+     <img src="Xena.jpg" alt="Xena en confiance">
+   </div>
+
+   <div v-if="getSkullCount() >= 4 " class="">
+     <img src="Xena.jpg" alt="Xena en confiance">
+   </div>
+
+   <div v-if="getSkullCount() >= 5 " class="">
+     <img src="Xena.jpg" alt="Xena en confiance">
+   </div>
+
+   <div v-if="getSkullCount() >= 6 " class="">
+     <img src="Xena.jpg" alt="Xena en confiance">
+   </div>
+
+<!-- ceci clot la div ID -->
 </div>
 
   <p><a href="./config.html">Accès à l'admin RETIRER pour jouer!</a></p>
