@@ -13,15 +13,15 @@ const app = new Vue({
     minutes: '',
     secondes: '',
     timerStarted: false,
-    endOfTime: false
+    beachBoys: false,
   },
-  // created: function() {
-  //   if (window.localStorage.getItem(TIME_LEFT_KEY)) {
-  //     console.log('poui?')
-  //     this.tempsTotal = window.localStorage.getItem(TIME_LEFT_KEY)
-  //     this.countDown();
-  //   }
-  // },
+  created: function() {
+    if (window.localStorage.getItem(TIME_LEFT_KEY)) {
+      console.log('poui?')
+      this.tempsTotal = window.localStorage.getItem(TIME_LEFT_KEY)
+      this.countDown();
+    }
+  },
   computed: {
     skullCount: function() {
        return this.getSkullCount()
@@ -34,6 +34,10 @@ const app = new Vue({
         this.currentPage = 'menu';
         console.log('correct');
       } else {
+        this.elecShock();
+        setTimeout(() => {
+        this.currentPage = 'accueil';
+        }, 5000);
         console.log('mauvais mdp');
       }
     },
@@ -41,9 +45,9 @@ const app = new Vue({
       if (this.timerStarted == false) {
         console.log('je fonctionne');
 
-        // if (!window.localStorage.getItem(TIME_LEFT_KEY)) {
-        //   this.tempsTotal = parseInt(window.localStorage.getItem(DURATION_KEY)) || DEFAULT_DURATION;
-        // }
+        if (!window.localStorage.getItem(TIME_LEFT_KEY)) {
+          this.tempsTotal = parseInt(window.localStorage.getItem(DURATION_KEY)) || DEFAULT_DURATION;
+        }
 
         setInterval(() => {
           this.tempsTotal--;
@@ -71,9 +75,12 @@ const app = new Vue({
         this.currentPage = 'pageCorpus';
         setTimeout(() => {
           this.currentPage = 'menu';
-        }, 4000);
+        }, 5000);
       } else {
        this.elecShock();
+       setTimeout(() => {
+          this.currentPage = 'menu';
+        }, 5000);
       }
     },
     mdp3: function() {
@@ -104,9 +111,9 @@ const app = new Vue({
       this.mdp1();
       this.countDown();
     },
-    pauseAlerte: function() {
-     this.endOfTime = false;
-   }
+    pauseBeachBoys: function() {
+     this.beachBoys = false;
+    }
   },
   watch: {
     tempsTotal: function() {
@@ -116,11 +123,16 @@ const app = new Vue({
       if (this.tempsTotal == 0) {
         console.log("fin du temps");
         this.timerStarted = false;
-        this.endOfTime = true;
-        this.currentPage = 'end';
+        setTimeout(() => {
+          this.currentPage = 'end';
+        }, 10000);
         setTimeout(() => {
           this.currentPage = 'downtrip';
-        }, 10000);
+        }, 25000);
+        setTimeout(() => {
+          this.beachBoys = true;
+          console.log('beach boys');
+        }, 35000);
       }
    }
   },

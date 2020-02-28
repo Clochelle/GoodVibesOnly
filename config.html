@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <title>Good Vibes Only</title>
   <link rel="stylesheet" href="Styles.css" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Orbitron|Roboto+Mono&display=swap" rel="stylesheet">
   <script src="constants.js"></script>
   <script src="vue.js" defer></script>
   <script src="moment.js" defer></script>
@@ -30,18 +31,23 @@
         <button type="button" v-on:click="save">Sauvegarder</button>
       </form>
     </div>
+
+    <div class="center">
     <h2>Résumé</h2>
-    <p>#1 : {{ toHHMMSS(first) }}</p>
-    <p>#2 : {{ toHHMMSS(second) }}</p>
-    <p>#3 : {{ toHHMMSS(third) }}</p>
-    <p>#4 : {{ toHHMMSS(fourth) }}</p>
-    <p>#5 : {{ toHHMMSS(fifth) }}</p>
-    <p>#6 : {{ toHHMMSS(sixth) }}</p>
+      <div class="flex-cranes"><img src="crane.png" alt="crane"><p>1 : {{ toHHMMSS(first) }}</p></div>
+      <div class="flex-cranes"><img src="crane.png" alt="crane"><p>2 : {{ toHHMMSS(second) }}</p></div>
+      <div class="flex-cranes"><img src="crane.png" alt="crane"><p>3 : {{ toHHMMSS(third) }}</p></div>
+      <div class="flex-cranes"><img src="crane.png" alt="crane"><p>4 : {{ toHHMMSS(fourth) }}</p></div>
+      <div class="flex-cranes"><img src="crane.png" alt="crane"><p>5 : {{ toHHMMSS(fifth) }}</p></div>
+      <div class="flex-cranes"><img src="crane.png" alt="crane"><p>6 : {{ toHHMMSS(sixth) }}</p></div>
+
     <p v-if="displayWarn">Des crânes apparaissent après la fin du jeu</p>
-    <h2>Autre actions</h2>
+    </div>
+
+    <h2>Autres actions</h2>
     <button v-on:click="reset">Reset timer</button>
     <button v-on:click="resetAll">Retourner aux valeurs par défaut</button>
-    <h2>Appuyer <a href="./Home.html">ICI</a> ce bouton pour aller sur la page du jeu</h2>
+    <h2>Appuyer <a href="./Home.html">ICI</a> pour aller sur la page du jeu</h2>
   </div>
 </body>
 

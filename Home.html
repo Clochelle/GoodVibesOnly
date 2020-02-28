@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <title>Good Vibes Only</title>
   <link rel="stylesheet" href="Styles.css" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat|Orbitron&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Orbitron|Roboto+Mono&display=swap" rel="stylesheet">
   <script src="constants.js"></script>
   <script src="vue.js" defer></script>
   <script src="Script.js" defer></script>
@@ -29,9 +29,6 @@
        <div v-if="timerStarted == true" class="">
          <!-- <p>{{ tempsTotal }}</p> -->
          <p>{{ heures }} : {{ minutes }} : {{ secondes }}</p>
-         <video autoplay="true">
-           <source src="Alerte.mp4" type="video/mp4" />
-         </video>
        </div>
       </div>
 
@@ -39,7 +36,7 @@
 
       <div v-if="currentPage == 'accueil'" class="center">
         <label for="password">IDENTIFICATION</label><br>
-        <input type="text" id="Password" v-model.trim="password" v-on:keyup.13="handleAccueilClick"><br>
+        <input type="password" id="Password" v-model.trim="password" v-on:keyup.13="handleAccueilClick"><br>
         <button v-on:click="handleAccueilClick">Valider</button>
       </div>
 
@@ -56,32 +53,47 @@
 
       <div v-if="currentPage == 'accesCorpus'" class="center">
         <label>Habilitation : Accès au corpus</label><br>
-        <input type="text" v-model.trim="passwordCorpus" v-on:keyup.13="mdp2"><br>
+        <input type="password" v-model.trim="passwordCorpus" v-on:keyup.13="mdp2"><br>
         <button type="button" name="button" v-on:click="mdp2">Valider</button><br>
         <button type="button" name="button" v-on:click="backMenu">Retour</button>
       </div>
 
       <!-- Page du Corpus avec les fées -->
 
-      <div v-if="currentPage == 'pageCorpus'" class="">
-        <h3>DES FÉES PARTOUT PLEIN DE FÉES</h3>
+      <div v-if="currentPage == 'pageCorpus'" class="page-corpus">
         <!-- <button type="button" name="button" v-on:click="retour">back</button> -->
       </div>
 
       <!-- Page d'ID pour l'accès à la liste -->
 
-      <div v-if="currentPage == 'accesListe'" class="">
-        <label>Habilitation : Accès à la Liste des Joueurs</label>
-        <input type="text" v-model.trim="passwordListe" v-on:keyup.13="mdp3">
-        <button type="button" name="button" v-on:click="mdp3">Submit</button>
-        <button type="button" name="button" v-on:click="backMenu">back</button>
+      <div v-if="currentPage == 'accesListe'" class="center">
+        <label>Habilitation : Accès à la Liste des Joueurs</label><br>
+        <input type="password" v-model.trim="passwordListe" v-on:keyup.13="mdp3"><br>
+        <button type="button" name="button" v-on:click="mdp3">Valider</button><br>
+        <button type="button" name="button" v-on:click="backMenu">Retour</button>
       </div>
 
       <!-- Page de Liste des Joueurs -->
 
-      <div v-if="currentPage == 'pageListe'" class="">
-        <h3>LA LISTE DES JOUEURS</h3>
-        <button type="button" name="button" v-on:click="backMenu">back</button>
+      <div v-if="currentPage == 'pageListe'" class="page-liste center">
+        <div class="liste-joueurs">
+          <ul>
+            <li>Eon</li>
+            <li>Gotika</li>
+            <li>Le Prophète</li>
+            <li>Melchior</li>
+            <li>Miss Diamond</li>
+            <li>Pharaon</li>
+            <li>Raven</li>
+            <li>Trinity</li>
+            <li>Viper</li>
+            <li>Zodiac</li>
+          </ul>
+        </div>
+        <div class="message-pirate">
+          <p>Si vos enfants sont heureux,<br>c'est qu'ils sont irréels...</p>
+        </div>
+        <button type="button" name="button" v-on:click="backMenu">Retour</button>
       </div>
 
       <!-- Page d'erreur -->
@@ -95,57 +107,62 @@
 
       <!-- Page de fin du temps -->
 
-      <div v-if="currentPage == 'end'" class="">
-        <h3>CORPUS DÉTRUIT</h3>
+      <div v-if="currentPage == 'end'" class="center">
+        <h1>CORPUS DÉTRUIT</h1>
+        <video width="0" height="0" autoplay="true" loop>
+          <source src="Alerte.mp4" type="video/mp4" />
+        </video>
       </div>
 
       <!-- Page de fin du trip-->
 
-      <div v-if="currentPage == 'downtrip'" class="">
-        <h3>DOWNTRIP EN COURS</h3>
+      <div v-if="currentPage == 'downtrip'" class="center">
+        <h1>DOWNTRIP EN COURS</h1>
       </div>
 
       <!-- Alerte de fin -->
 
-      <div v-if="endOfTime ==  true" class="">
+      <div v-if="beachBoys ==  true" class="center">
         <video width="0" height="0" autoplay="true" loop>
-          <source src="Alerte.mp4" type="video/mp4" />
+          <source src="Decharge.mp4" type="video/mp4" />
         </video>
-        <button v-on:click="pauseAlerte">Pause</button>
+        <button v-on:click="pauseBeachBoys">||</button>
       </div>
 
       <!-- Les cranes -->
+      <div class="flex-cranes">
+       <div v-if="skullCount >= 1" class="">
+         <img src="crane.png" alt="crane">
+       </div>
 
-      <div v-if="skullCount >= 1 " class="">
-        <img src="Xena.jpg" alt="Xena en confiance">
-      </div>
+       <div v-if="skullCount >= 2" class="">
+         <img src="crane.png" alt="crane">
+       </div>
 
-      <div v-if="skullCount >= 2 " class="">
-        <img src="Xena.jpg" alt="Xena en confiance">
-      </div>
+       <div v-if="skullCount >= 3" class="">
+         <img src="crane.png" alt="crane">
+       </div>
 
-      <div v-if="skullCount >= 3 " class="">
-        <img src="Xena.jpg" alt="Xena en confiance">
-      </div>
+       <div v-if="skullCount >= 4" class="">
+         <img src="crane.png" alt="crane">
+       </div>
 
-      <div v-if="skullCount >= 4 " class="">
-        <img src="Xena.jpg" alt="Xena en confiance">
-      </div>
+       <div v-if="skullCount >= 5" class="">
+         <img src="crane.png" alt="crane">
+       </div>
 
-      <div v-if="skullCount >= 5 " class="">
-        <img src="Xena.jpg" alt="Xena en confiance">
-      </div>
-
-      <div v-if="skullCount >= 6 " class="">
-        <img src="Xena.jpg" alt="Xena en confiance">
+       <div v-if="skullCount >= 6" class="">
+         <img src="crane.png" alt="crane">
+       </div>
       </div>
 
       <!-- ceci clot la div ID -->
     </div>
 
      <!-- ceci clot la div container -->
-
+  <div class="center">
   <p><a href="./config.html">Accès à l'admin RETIRER pour jouer!</a></p>
+  </div>
 
   </div>
 
